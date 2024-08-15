@@ -1,8 +1,10 @@
-<h2>List of Books</h2>
-
+<br/>
+<app-command-bar (actionEmitter)="edit(0)"></app-command-bar>
+<br/>
+<br/>
 <div *ngFor="let book of books">
     <app-book-item [bookItem]="book"></app-book-item>
     <br/>
-    <button (click)="edit(book.id)">Edit</button><button (click)="delete(book.id)">Delete</button>
+    <button (click)="edit(book.id)" routerLink="form" class ="btn btn-info" type="button" >Edit</button> &nbsp; <button (click)="delete(book.id)"  class ="btn btn-danger" type="button">Delete</button>
     <br/><br/>
 </div>

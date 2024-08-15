@@ -12,14 +12,20 @@ export class BookListComponent {
   books : Book[];
   bookIdsToEdit: number[] = [];
   bookIdsToDelete: number[] = [];
+  service : BookService;
 
   constructor(private bookService : BookService ){
     this.books = bookService.getBooks();
+    this.service = bookService
   }
 
   edit = (id : number) =>{
+    
+    if(id !== 0){
     console.log('id #' + id + ' has been passed to edit button.'); //for checking
-    this.bookIdsToEdit.push(id)
+    this.bookIdsToEdit.push(id)}
+  
+    this.service.setSelectedBook(id)
   }
 
   delete = (id : number) =>{

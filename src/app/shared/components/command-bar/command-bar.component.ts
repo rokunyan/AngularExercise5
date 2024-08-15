@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-command-bar',
@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrl: './command-bar.component.css'
 })
 export class CommandBarComponent {
+
+@Input('inputItem') input: any | undefined
+
+@Output() actionEmitter = new EventEmitter<any>();
+
+sendAction = () => {
+  this.actionEmitter.emit(this.input);
+};
 
 }

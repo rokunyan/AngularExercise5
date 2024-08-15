@@ -45,6 +45,15 @@ export class BookService {
     }
   ]
 
+  defaultBook : Book = {id: this.bookArray.length + 1, name: '', authors:[''], isbn:''};
+  selectedBook = this.defaultBook
+
+  setSelectedBook = (id : number) => {
+    if(id === 0){
+      this.selectedBook = this.defaultBook
+    } else this.selectedBook = this.bookArray[id-1]
+  } 
+
   getBooks = () =>{
     return this.bookArray;
   }

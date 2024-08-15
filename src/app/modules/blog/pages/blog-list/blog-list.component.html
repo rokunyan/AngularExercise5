@@ -1,8 +1,10 @@
-<h2>List of Blogs</h2>
-
+<br/>
+<app-command-bar (actionEmitter)="edit(0)"></app-command-bar>
+<br/>
+<br/>
 <div *ngFor="let blog of blogs">
     <app-blog-item [blogItem]="blog"></app-blog-item>
     <br/>
-    <button (click)="edit(blog.id)">Edit</button><button (click)="delete(blog.id)">Delete</button>
+    <button (click)="edit(blog.id)" routerLink="form" class ="btn btn-info" type="button">Edit</button>&nbsp;<button (click)="delete(blog.id)" class ="btn btn-danger" type="button">Delete</button>
     <br/><br/>
 </div>

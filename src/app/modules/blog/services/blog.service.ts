@@ -31,7 +31,16 @@ export class BlogService {
     }
   ]
 
-  getBlogs = () =>{
+  defaultBlog : Blog = {id: this.blogArray.length + 1, title: '', description:'', author:'',comments:['']}
+  selectedBlog = this.defaultBlog;
+
+  setSelectedBlog = (id : number) => {
+    if(id===0){
+      this.selectedBlog = this.defaultBlog
+    } else this.selectedBlog = this.blogArray[id - 1]
+  } 
+
+  getBlogs = () => {
     return this.blogArray;
   }
 }

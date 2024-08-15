@@ -1,10 +1,20 @@
-<h2>User Profile</h2>
-
-<form id = form>
-
-    <label>Email: <input id="email" type="text"></label><br/><br/>
-    <label>Name: <input id="name" type="text"></label><br/><br/>
-    <label>Bio: <input id="bio" type="text"></label><br/><br/>
-    <label>Active: <input id="active" type="checkbox"></label><br/><br/>
-    
+<form [formGroup]="profileForm" class="container" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input formControlName="email" id="email" type="text" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input formControlName="name" id="name" type="text" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="bio">Bio</label>
+        <input formControlName="bio" id="bio" type="text" class="form-control"/>
+    </div>
+    <div class="checkbox">
+        <label for="active">Active</label>
+        <input formControlName="active" id="active" type="checkbox"/>
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-info">Submit</button>
 </form>
