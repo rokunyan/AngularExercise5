@@ -1,0 +1,56 @@
+{
+    "books":[{
+        "id": 1,
+        "name": "Animal Stories",
+        "authors": ["Maria Hoey", "Peter Hoey"],
+        "isbn": "978-1-60309-502-0"
+  
+      },
+      {
+        "id": 2,
+        "name": "But You Have Friends",
+        "authors": ["Emilia McKenzie"],
+        "isbn": "978-1-60309-527-3"
+  
+      },
+      {
+        "id": 3,
+        "name": "Doughnuts and Doom",
+        "authors": ["Balazs Lorinczi"],
+        "isbn": "978-1-60309-513-6"
+  
+      },
+      {
+        "id": 4,
+        "name": "The Fun Family",
+        "authors": ["Benjamin Frisch"],
+        "isbn": "978-1-60309-344-6"
+  
+      }, 
+      {
+        "id": 5,
+        "name": "Korgi: The Complete Tale",
+        "authors": ["Christian Slade"],
+        "isbn": "978-1-60309-538-9"
+  
+      }],"blogs":[{
+        "id": 1,
+        "title": "Blog A",
+        "description":"This is blog A.",
+        "author": "Author A",
+        "comments":["This blog is generic.", "This is boring."]
+      },
+      {
+        "id": 2,
+        "title": "Blog B",
+        "description": "This is blog B.",
+        "author": "Author B",
+        "comments":["This blog is useless.", "Open the schools."]
+      },
+      {
+        "id": 3,
+        "title": "Blog C",
+        "description": "This is blog C.",
+        "author": "Author C",
+        "comments":["Okay.", "Hmmm..."]
+      }]}

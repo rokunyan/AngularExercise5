@@ -11,11 +11,9 @@ export class BlogListComponent {
   blogs : Blog[];
   blogIdsToEdit: number[] = [];
   blogIdsToDelete: number[] = [];
-  service: BlogService
 
   constructor(private blogService : BlogService ){
-    this.blogs = blogService.getBlogs();
-    this.service = blogService
+    this.blogs = blogService.getBlogs()
   }
 
   edit = (id : number) =>{
@@ -24,7 +22,7 @@ export class BlogListComponent {
       console.log('id #' + id + ' has been passed to edit button.'); //for checking
       this.blogIdsToEdit.push(id)
     }
-    this.service.setSelectedBlog(id)
+    this.blogService.setSelectedBlog(id)
   }
 
   delete = (id : number) =>{

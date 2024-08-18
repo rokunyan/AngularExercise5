@@ -3,10 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { BookListComponent } from './pages/book-list/book-list.component';
 import { BookFormComponent } from './pages/book-form/book-form.component';
+import { bookResolver } from './resolver/book.resolver';
 
 const routes: Routes = [{
   path: '',
-  component: BookListComponent
+  component: BookListComponent,
+  resolve:{
+    books: bookResolver
+  }
 },
 {
   path: 'form',

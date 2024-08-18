@@ -1,57 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Book } from '../models/book';
+import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
+  private serviceURL = 'http://localhost:3000/books'
 
-  //set random books for sample
-  bookArray: Book[] = [
-    {
-      id: 1,
-      name: 'Animal Stories',
-      authors: ['Maria Hoey', 'Peter Hoey'],
-      isbn: '978-1-60309-502-0'
+  constructor(private http : HttpClient){}
 
-    },
-    {
-      id: 2,
-      name: 'But You Have Friends',
-      authors: ['Emilia McKenzie'],
-      isbn: '978-1-60309-527-3'
+ //reading blogs from json db
 
-    },
-    {
-      id: 3,
-      name: 'Doughnuts and Doom',
-      authors: ['Balazs Lorinczi'],
-      isbn: '978-1-60309-513-6'
+ bookArray: Book[] = []
 
-    },
-    {
-      id: 4,
-      name: 'The Fun Family',
-      authors: ['Benjamin Frisch'],
-      isbn: '978-1-60309-344-6'
-
-    }, 
-    {
-      id: 5,
-      name: 'Korgi: The Complete Tale',
-      authors: ['Christian Slade'],
-      isbn: '978-1-60309-538-9'
-
-    }
-  ]
+  findAllBooks = () => { 
+    return this.http.get<any>(this.serviceURL)
+    .pipe(tap((data) => {this.bookArray = data}))
+  }
 
   defaultBook : Book = {id: this.bookArray.length + 1, name: '', authors:[''], isbn:''};
   selectedBook = this.defaultBook
 
   setSelectedBook = (id : number) => {
-    if(id === 0){
-      this.selectedBook = this.defaultBook
-    } else this.selectedBook = this.bookArray[id-1]
+    this.selectedBook = (this.bookArray.filter((data) => data.id === id))[0] ?? this.defaultBook
   } 
 
   getBooks = () =>{
