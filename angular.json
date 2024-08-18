@@ -14,7 +14,10 @@
         },
         "@schematics/angular:pipe": {
           "standalone": false
-        }
+        },
+        "@schematics/angular:guard": { "implements": [
+          "CanActivate"
+        ]}
       },
       "root": "",
       "sourceRoot": "src",
