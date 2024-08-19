@@ -22,8 +22,13 @@ export class AuthService {
 ]
   
 session : any
+
 constructor() {
-  let session: any = localStorage.getItem('session');
+  let session: any 
+  
+  if (typeof window !== 'undefined') {
+    session = localStorage.getItem('session');
+  }
 
   if(session){
     this.session = JSON.parse(session)
@@ -34,7 +39,9 @@ isValidCred(email: string, password: string){
   let user = this.validUsers.find((u) => u.email === email && u.password === password)
   if(user){
     this.session = user;
-    localStorage.setItem('session', JSON.stringify(this.session))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('session', JSON.stringify(this.session))
+  }
   }
 
   return user

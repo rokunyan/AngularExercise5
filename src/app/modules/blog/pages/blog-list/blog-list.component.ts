@@ -1,32 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Blog } from '../../models/blog';
 import { BlogService } from '../../services/blog.service';
+import { Subscription } from 'rxjs';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-blog-list',
   templateUrl: './blog-list.component.html',
   styleUrl: './blog-list.component.css'
 })
-export class BlogListComponent {
-  blogs : Blog[];
-  blogIdsToEdit: number[] = [];
-  blogIdsToDelete: number[] = [];
+export class BlogListComponent implements OnDestroy, OnInit{
+  blogs : Blog[] | undefined;
+  sub: Subscription | undefined
 
-  constructor(private blogService : BlogService ){
-    this.blogs = blogService.getBlogs()
+  constructor(private blogService : BlogService, private router : Router ){
+    this.sub = this.blogService.findAllBlogs().subscribe(data => this.blogs = data as Blog[])
   }
 
-  edit = (id : number) =>{
+  ngOnInit(): void {
+    this.getAllBlog()
+  }
 
-    if(id !== 0 ){
-      console.log('id #' + id + ' has been passed to edit button.'); //for checking
-      this.blogIdsToEdit.push(id)
+  getAllBlog(){
+    this.blogService.findAllBlogs().subscribe(data => this.blogs = data as Blog[])
+  }
+
+  edit = (id : string) =>{
+    let blog = this.blogs?.filter((data) => data.id === id)[0]
+    let length = (this.blogs?.length)?? 0
+    if(blog){
+      this.blogService.setSelectedBlog(blog)
+    }else if(this.blogs && length > 0){
+      console.log("pumasok dito")
+      let finalBlog = this.blogs[length - 1]
+      let nextId = (+ finalBlog.id as unknown as number) + 1
+      this.blogService.setSelectedBlog({id: ((nextId as unknown) as string)+'', author: '', title : '',description:'', comments:['']})
+    } else{
+      console.log("san pumunta")
+      this.blogService.setSelectedBlog({id: '1', author: '', title : '',description:'', comments:['']})
     }
-    this.blogService.setSelectedBlog(id)
+
+  }
+  delete = (id : string) =>{
+    this.sub = this.blogService.deleteBlog(id).subscribe(() => this.getAllBlog())
   }
 
-  delete = (id : number) =>{
-    console.log('id #' + id + ' has been passed to delete button.'); //for checking
-    this.blogIdsToDelete.push(id)
+  call = (input: string) => {
+    if(input === 'edit'){
+      this.edit('0');
+    }else {
+      this.blogs?.forEach((data) => this.delete(data.id))
+    }
   }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe
+  }
+
 }

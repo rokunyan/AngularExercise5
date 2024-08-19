@@ -11,24 +11,34 @@ export class BookService {
 
   constructor(private http : HttpClient){}
 
- //reading blogs from json db
-
- bookArray: Book[] = []
+ //reading books from json db
 
   findAllBooks = () => { 
     return this.http.get<any>(this.serviceURL)
-    .pipe(tap((data) => {this.bookArray = data}))
+    .pipe(tap((x) => x))
   }
 
-  defaultBook : Book = {id: this.bookArray.length + 1, name: '', authors:[''], isbn:''};
-  selectedBook = this.defaultBook
+  selectedBook : Book = {
+    id: '0' ,
+    name: '',
+    authors: [''],
+    isbn: '',
+  }
+  
+  setSelectedBook = (book : Book) => {
+    this.selectedBook = book
+  }
 
-  setSelectedBook = (id : number) => {
-    this.selectedBook = (this.bookArray.filter((data) => data.id === id))[0] ?? this.defaultBook
-  } 
+  createBook = (book : Book) => {
+    return this.http.post(this.serviceURL, book).pipe()
+  }
 
-  getBooks = () =>{
-    return this.bookArray;
+  updateBook = (book : Book) => {
+    return this.http.put(`${this.serviceURL}/${book.id}`, book).pipe()
+  }
+
+  deleteBook = (id: any) => {
+    return this.http.delete(`${this.serviceURL}/${id}`).pipe()
   }
 }
 

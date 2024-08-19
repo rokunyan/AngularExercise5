@@ -14,21 +14,32 @@ export class BlogService {
 
  //reading blogs from json db
 
-  blogArray: Blog[] = []
-
   findAllBlogs = () => { 
     return this.http.get<any>(this.serviceURL)
-    .pipe(tap((data) => this.blogArray = data))
+    .pipe(tap((x) => x))
   }
 
-  defaultBlog : Blog = {id: this.blogArray.length + 1, title: '', description:'', author:'',comments:['']}
-  selectedBlog = this.defaultBlog;
+  selectedBlog : Blog = {
+    id: '0' ,
+    title: '',
+    description: '',
+    author: '',
+    comments: ['']
+  }
+  
+  setSelectedBlog = (blog : Blog) => {
+    this.selectedBlog = blog
+  }
 
-  setSelectedBlog = (id : number) => {
-    this.selectedBlog = (this.blogArray.filter((data) => data.id === id))[0] ?? this.defaultBlog
-  } 
+  createBlog = (blog : Blog) => {
+    return this.http.post(this.serviceURL, blog).pipe()
+  }
 
-  getBlogs = () => {
-    return this.blogArray;
+  updateBlog = (blog : Blog) => {
+    return this.http.put(`${this.serviceURL}/${blog.id}`, blog).pipe()
+  }
+
+  deleteBlog = (id: any) => {
+    return this.http.delete(`${this.serviceURL}/${id}`).pipe()
   }
 }

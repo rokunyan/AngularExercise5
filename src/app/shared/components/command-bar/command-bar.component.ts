@@ -7,12 +7,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class CommandBarComponent {
 
-@Input('inputItem') input: any | undefined
 
 @Output() actionEmitter = new EventEmitter<any>();
 
-sendAction = () => {
-  this.actionEmitter.emit(this.input);
+sendAdd = () => {
+  this.actionEmitter.emit('edit');
+};
+
+sendDelete = () => {
+  this.actionEmitter.emit('deleteAll');
 };
 
 }
