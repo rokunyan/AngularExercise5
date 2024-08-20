@@ -31,12 +31,10 @@ export class BlogListComponent implements OnDestroy, OnInit{
     if(blog){
       this.blogService.setSelectedBlog(blog)
     }else if(this.blogs && length > 0){
-      console.log("pumasok dito")
       let finalBlog = this.blogs[length - 1]
       let nextId = (+ finalBlog.id as unknown as number) + 1
       this.blogService.setSelectedBlog({id: ((nextId as unknown) as string)+'', author: '', title : '',description:'', comments:['']})
     } else{
-      console.log("san pumunta")
       this.blogService.setSelectedBlog({id: '1', author: '', title : '',description:'', comments:['']})
     }
 
